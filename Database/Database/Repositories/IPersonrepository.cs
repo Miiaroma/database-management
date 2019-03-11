@@ -9,7 +9,7 @@ namespace Database.Repositories
     {
         //CRUD
         void Create(Person person);
-        List<Person> Read();
+        List<Person> ReadByCity(string city);
         Person ReadById(long id);       
         void Update(long id, Person person);
         void Delete(long id);
