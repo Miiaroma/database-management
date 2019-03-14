@@ -34,10 +34,11 @@ namespace Database.Repositories
                 _persontestdbContext.SaveChanges();
                 Console.WriteLine("Tiedot poistettu onnistuneesti!");
             }
+
             else
             {
-                Console.WriteLine("Tiedon poisto ei onnistunut, ID tuntematon");
-            }            
+                Console.WriteLine("Tiedon poisto ei onnistunut, ID tuntematon.");
+            }
         }
 
         public List<Person> ReadByCity(string city)
@@ -79,8 +80,18 @@ namespace Database.Repositories
 
         public void Update(long id, Person person)
         {
-            throw new NotImplementedException();
-        }
+            var isPersonAlive = ReadById(id);
+            if (isPersonAlive != null)
+            {
+                _persontestdbContext.Update(person);
+                _persontestdbContext.SaveChanges();
+                Console.WriteLine("Tiedot tallennetty onnistuneesti!");
+            }
 
+            else
+            {
+                Console.WriteLine("Tietojen tallennus epäonnistui, henkilöä ei ole olemassa!");
+            }
+        }
     }
 }

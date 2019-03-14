@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using Database.Repositories;
 using Database.Model;
+using Database.Views;
 
 
 namespace Database
@@ -12,46 +13,71 @@ namespace Database
 
         static void Main(string[] args)
         {
-            //Testing database
-            CreatePerson();
-            var persons = _personRepository.ReadByCity("London");
-            //ReadByCity();
-            //for (int i = 0; i < 100; i++)
-            //{
-            //    ReadById(i);
-            //}
-        }
+            string choise = null;
+            UIModel uiModel = new UIModel();
+            string msg = "";
 
-        static void CreatePerson()
-        {
-            Person person = new Person();
-            person.FirstName = "James";
-            person.LastName = "Bond";
-            person.City = "London";
-            person.ShoeSize = 42;
-            _personRepository.Create(person);
-                       
-        }
-
-        static void ReadByCity()
-        {
-            var persons = _personRepository.ReadByCity("London");
-            
-            foreach(var p in persons)
+           
+            do
             {
-                Console.WriteLine($"{p.ID} {p.FirstName} {p.City}");                
+                choise = UserInterface();
+
+                switch (choise.ToUpper())
+                {
+                    case "C":
+                        uiModel.CreatePerson();
+
+                        msg = "\n------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
+                    case "R":
+                        uiModel.ReadById(5001);
+                        msg = "\n--------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
+                    case "U":
+                        uiModel.UpdatePerson();
+                        msg = "\n--------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
+                    case "D":
+                        uiModel.DeletePerson(5003);
+                        msg = "\n--------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
+                    case "R1":
+                        uiModel.ReadByCity();
+                        msg = "\n--------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
+                    case "X":
+                        msg = "\nOhjelman suoritus päättyy!";
+                        break;
+                    default:
+                        msg = "Nyt tuli huti yritä uudestaan - Paina Enter ja aloita alusta!";
+                        break;
+                }
+
+                Console.WriteLine(msg);
+                Console.ReadLine();
+                Console.Clear();
             }
-            Console.WriteLine("-----------------------------------------");
+            while (choise.ToUpper() != "X");
         }
 
-        static void ReadById(long Id)
-        {
-            var person = _personRepository.ReadById(Id);
 
-            if (person == null)
-                Console.WriteLine($"Asiakasta numerolla {Id} ei löytynyt!");
-            else
-                 Console.WriteLine($"{person.ID} {person.FirstName} {person.LastName} {person.City}");
-        }                        
+
+        static string UserInterface()
+        {
+            Console.WriteLine("Tietokannan käsittely esimerkki!");
+            Console.WriteLine("[C] Lisää tietokantaan uusi tietue");
+            Console.WriteLine("[R] Lue tietokannasta tietoja");
+            Console.WriteLine("[U] Päivitä henkilön tiedot");
+            Console.WriteLine("[D] Poista henkilö tietokannasta");
+            Console.WriteLine("[R1] Hae tiedot kaupungista");            
+            Console.WriteLine("[X] Lopeta ohjelmansuoritus");
+            Console.WriteLine();
+            Console.Write("Valitse mitä tehdään: ");
+
+            return Console.ReadLine();
+        }
+
+                                 
+
     }
 }
