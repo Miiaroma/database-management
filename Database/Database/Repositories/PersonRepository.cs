@@ -16,8 +16,8 @@ namespace Database.Repositories
         public void Create(Person person)
         {
             //with SQL
-            string sql = $"INSERT INTO PERSON (FirstName, LastName, City, ShoeSize) " +
-                $"VALUES ({person.FirstName}, {person.LastName}, {person.City}, {person.ShoeSize})";
+            //string sql = $"INSERT INTO PERSON (FirstName, LastName, City, ShoeSize) " +
+            //    $"VALUES ({person.FirstName}, {person.LastName}, {person.City}, {person.ShoeSize})";
 
             //with Entity framework
             _persontestdbContext.Add(person);
@@ -26,8 +26,18 @@ namespace Database.Repositories
 
         public void Delete(long id)
         {
-
-            throw new NotImplementedException();
+            //DELETE * FROM PERSON WHERE ID={id}
+            var deletedPerson = ReadById(id);
+            if (deletedPerson != null)
+            {
+                _persontestdbContext.Person.Remove(deletedPerson);
+                _persontestdbContext.SaveChanges();
+                Console.WriteLine("Tiedot poistettu onnistuneesti!");
+            }
+            else
+            {
+                Console.WriteLine("Tiedon poisto ei onnistunut, ID tuntematon");
+            }            
         }
 
         public List<Person> ReadByCity(string city)
