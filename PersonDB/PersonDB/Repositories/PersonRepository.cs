@@ -11,35 +11,63 @@ namespace PersonDB.Repositories
 {
     class PersonRepository : IPersonRepository
     {
-     private readonly PersondbContext _persondbContext = new PersondbContext();
+        private readonly PersondbContext _persondbContext = new PersondbContext();
 
         public void Create(Person person)
         {
             _persondbContext.Person.Add(person);
-            _persondbContext.SaveChanges();          
+            _persondbContext.SaveChanges();
         }
 
         public void Delete(long id)
         {
-            throw new NotImplementedException();
+            var deletedPerson = ReadById(id);
+
+            if (deletedPerson != null)
+            {
+                _persondbContext.Person.Remove(deletedPerson);
+                _persondbContext.SaveChanges();
+                Console.WriteLine("Tiedot poistettu onnistuneesti!");
+            }
+
+            else
+            {
+                Console.WriteLine("Tiedon poisto ei onnistunut, ID tuntematon.");
+            }
         }
 
         public List<Person> Read()
         {
             var persons = _persondbContext.Person
-                .Include(p=>p.Phone)
-                .ToList();
-            return persons;            
+                .Include(p => p.Phone)
+                .ToListAsync().
+                Result;
+            return persons;
         }
 
-        public Person Read(long id)
+        public Person ReadById(long id)
         {
-            throw new NotImplementedException();
+            var person = _persondbContext.Person.Find(id);
+            return person;
         }
 
         public void Update(long id, Person person)
         {
-            throw new NotImplementedException();
+            var isPerson = ReadById(id);
+            if (isPerson != null)
+            {
+                _persondbContext.Update(person);
+                _persondbContext.SaveChanges();
+
+                Console.WriteLine("Tiedot tallennetty onnistuneesti!");
+            }
+
+            else
+            {
+                Console.WriteLine("Tietojen tallennus epäonnistui, henkilöä ei ole olemassa!");
+            }
         }
+
     }
 }
+
