@@ -39,7 +39,7 @@ namespace PersonDB.Repositories
         public List<Person> Read()
         {
             var persons = _persondbContext.Person
-                .Include(p => p.Phone)
+                //.Include(p => p.Phone)
                 .ToListAsync().
                 Result;
             return persons;
@@ -66,6 +66,23 @@ namespace PersonDB.Repositories
             {
                 Console.WriteLine("Tietojen tallennus epäonnistui, henkilöä ei ole olemassa!");
             }
+        }
+
+        public List<Person> GetPersonPhone()
+        {
+            List<Person> persons = _persondbContext.Person
+                .Include(p => p.Phone)
+                .ToListAsync().Result;
+            return persons;
+        }
+
+        public Person GetPersonByIdAndPhones(int id)
+        {
+            var person = _persondbContext.Person
+                .Include(p => p.Phone)
+                .Single(p => p.Id == id);
+
+            return person;
         }
 
     }

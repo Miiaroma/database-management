@@ -7,6 +7,16 @@ namespace PersonDB.Models
 {
     public partial class Phone
     {
+        public Phone()
+        {
+        }
+
+        public Phone(string type, string number)
+        {
+            Type = type;
+            Number = number;
+        }     
+        
         public long Id { get; set; }
         public string Type { get; set; }
         [StringLength(50)]
@@ -16,5 +26,10 @@ namespace PersonDB.Models
         [ForeignKey("PersonId")]
         [InverseProperty("Phone")]
         public virtual Person Person { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id}\t{Type}\t{Number}";
+        }        
     }
 }

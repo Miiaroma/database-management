@@ -22,12 +22,14 @@ namespace PersonDB
                 switch (cki.Key)
                 {
                     case ConsoleKey.C:
-                        uiModel.CreatePerson();
+                        //uiModel.CreatePerson();
+                        uiModel.AddPerson();
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
                     case ConsoleKey.R:
-                        uiModel.Read();
+                        //uiModel.Read();
+                        uiModel.PrintToScreen(_personRepository.Read());
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
@@ -37,12 +39,34 @@ namespace PersonDB
                         break;
 
                     case ConsoleKey.D:
-                        uiModel.DeletePerson(12);
+                        uiModel.DeletePerson(18);
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
                     case ConsoleKey.I:
-                        uiModel.ReadById(1);
+                        //uiModel.ReadById(1);
+                        Console.Write("\nSyötä henkilön id, jonka tiedot näytetään: ");
+                        int id = int.Parse(Console.ReadLine());
+                        uiModel.PrintToScreen(_personRepository.GetPersonByIdAndPhones(id));                        
+                        message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
+
+                    case ConsoleKey.P:
+                        Console.Write("\nSyötä henkilön id, jonka tiedot näytetään: \n");
+                        id = int.Parse(Console.ReadLine());
+                        Person updatePersonAndPhone = _personRepository.GetPersonByIdAndPhones(id);
+                        uiModel.PrintToScreen(_personRepository.GetPersonByIdAndPhones(id));
+                        Console.Write("Valitse id, jonka haluat muuttaa: ");
+                        int pId = int.Parse(Console.ReadLine());
+
+                        Console.Write("Syötä uusi numero: ");
+                        string newNumber = Console.ReadLine();
+                        foreach (var p in updatePersonAndPhone.Phone)
+                        {
+                            if (p.Id == pId)
+                                p.Number = newNumber;
+                        }
+                        _personRepository.Update(2, updatePersonAndPhone);                        
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
@@ -71,6 +95,7 @@ namespace PersonDB
             Console.WriteLine("[D] Poista henkilö tietokannasta.");
             Console.WriteLine("----------------------------------");
             Console.WriteLine("[I] Hae tiedot tunnuksen mukaan.");
+            Console.WriteLine("[P] Päivitä puhelinumerot.");
             Console.WriteLine("[ESC] Lopeta ohjelman suoritus.");
             Console.WriteLine();
             Console.WriteLine("Valitse vaihtoehto:");
