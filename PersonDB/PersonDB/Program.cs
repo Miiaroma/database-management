@@ -56,7 +56,7 @@ namespace PersonDB
                         id = int.Parse(Console.ReadLine());
                         Person updatePersonAndPhone = _personRepository.GetPersonByIdAndPhones(id);
                         uiModel.PrintToScreen(_personRepository.GetPersonByIdAndPhones(id));
-                        Console.Write("Valitse id, jonka haluat muuttaa: ");
+                        Console.Write("Valitse id, jonka numeron haluat muuttaa: ");
                         int pId = int.Parse(Console.ReadLine());
 
                         Console.Write("Syötä uusi numero: ");

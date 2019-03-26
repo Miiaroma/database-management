@@ -113,7 +113,7 @@ namespace PersonDB.Views
             //    new Phone{Type = "Work", Number = "22334455"}
             //};
 
-            _personRepository.Update(11, updatePerson);
+            _personRepository.Update(17, updatePerson);
         }
 
         public void DeletePerson(int id)
