@@ -26,14 +26,14 @@ namespace BankApp.Repositories
             return banks;
         }
 
-        //public List<Bank> GetBankCustomers()
-        //{
-        //    var banks = _bankappContext.Bank
-        //        .Include(b => b.Customer)
-        //        .ToListAsync().
-        //        Result;
-        //    return banks;
-        //}
+        public List<Bank> GetBankCustomers()
+        {
+            var banks = _bankappContext.Bank
+                .Include(b => b.Customer)
+                .ToListAsync().
+                Result;
+            return banks;
+        }
 
         public Bank ReadById(long id)
         {
@@ -80,7 +80,7 @@ namespace BankApp.Repositories
             List<Bank> banks = _bankappContext.Bank
                 .Include(b => b.Customer)
                 .Include(b => b.Account)
-                .Include(b => b.Account).ThenInclude(a => a.Transaction)
+                .ThenInclude(a => a.Transaction)
                 .ToListAsync().Result;
             return banks;
         }

@@ -7,17 +7,7 @@ namespace BankApp.Models
 {
     public partial class Transaction
     {
-        public Transaction()
-        {
-        }
-
-        public Transaction(decimal amount, DateTime timeStamp)
-        {
-            Amount = amount;
-            TimeStamp = timeStamp;
-        }
-              
-        public long ID { get; set; }
+        public long Id { get; set; }
         [Required]
         [Column("IBAN")]
         [StringLength(20)]
@@ -30,10 +20,5 @@ namespace BankApp.Models
         [ForeignKey("Iban")]
         [InverseProperty("Transaction")]
         public virtual Account IbanNavigation { get; set; }
-
-        public override string ToString()
-        {
-            return $"{Amount}, {TimeStamp}";
-        }
     }
 }

@@ -10,6 +10,7 @@ namespace BankApp
         private static readonly BankRepository _bankRepository = new BankRepository();
         private static readonly AccountRepository _accountRepository = new AccountRepository();
         private static readonly CustomerRepository _customerRepository = new CustomerRepository();
+        private static readonly TransactionRepository _transactionepository = new TransactionRepository();
 
         static void Main(string[] args)
         {
@@ -17,6 +18,7 @@ namespace BankApp
             string message = string.Empty;
             BankView bankView = new BankView();
             AccountView accountView = new AccountView();
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             do
             {
@@ -34,7 +36,7 @@ namespace BankApp
                         break;
 
                     case ConsoleKey.D:
-                        bankView.DeleteBank(7);
+                        bankView.DeleteBank(8);
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
@@ -53,18 +55,33 @@ namespace BankApp
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
-                    //case ConsoleKey.F:
-                    //    bankView.UpdateCustomer();
-                    //    message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
-                    //    break;
+                    case ConsoleKey.F:
+                        bankView.UpdateCustomer();
+                        message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
 
                     case ConsoleKey.G:
-                        bankView.DeleteCustomer(8);
+                        bankView.DeleteCustomer(10);
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
                     case ConsoleKey.H:
-                        accountView.DeleteAccount("12345678912345");
+                        accountView.DeleteAccount("22113344556677");
+                        message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
+
+                    case ConsoleKey.I:
+                        accountView.ReadbyIban("FI123987654");
+                        message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
+
+                    case ConsoleKey.J:
+                        accountView.CreateTransaction();
+                        message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
+
+                    case ConsoleKey.K:
+                        accountView.GetTransactionByIban("112233445566778");
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 

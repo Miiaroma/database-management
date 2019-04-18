@@ -12,30 +12,19 @@ namespace BankApp.Models
             Account = new HashSet<Account>();
         }
 
-        public Customer(string firstName, string lastName)
-        {
-            Firstname = firstName;
-            Lastname = lastName;
-        }
-
-        public long ID { get; set; }
+        public long Id { get; set; }
         [Required]
         [StringLength(50)]
         public string Firstname { get; set; }
         [Required]
         [StringLength(50)]
         public string Lastname { get; set; }
-        public long BankID { get; set; }
+        public long BankId { get; set; }
 
         [ForeignKey("BankId")]
         [InverseProperty("Customer")]
         public virtual Bank Bank { get; set; }
         [InverseProperty("Customer")]
         public virtual ICollection<Account> Account { get; set; }
-
-        public override string ToString()
-        {
-            return $"{ID}, {Firstname} {Lastname}";
-        }
     }
 }

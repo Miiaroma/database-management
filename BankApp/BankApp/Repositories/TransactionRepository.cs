@@ -4,6 +4,7 @@ using System.Text;
 using BankApp.Models;
 using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace BankApp.Repositories
 {
@@ -17,11 +18,10 @@ namespace BankApp.Repositories
             return transactions;
         }
 
-        public Transaction GetTransactionById(int id)
+        public List<Transaction> GetTransactionByIban(string iban)
         {
-            var transaction = _bankappContext.Transaction.Find(id);
-            return transaction;
-
+            var transactions = _bankappContext.Transaction.Where(t => t.Iban==iban).ToList();
+            return transactions;
         }
     }
 }

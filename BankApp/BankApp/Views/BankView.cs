@@ -28,7 +28,7 @@ namespace BankApp.Views
 
             foreach (var p in banks)
             {
-                Console.WriteLine($"\n{p.ID},{p.Name},{p.Bic}");
+                Console.WriteLine($"\n{p.Id},{p.Name},{p.Bic}");
             }
             Console.WriteLine();
         }
@@ -42,13 +42,13 @@ namespace BankApp.Views
                 Console.WriteLine($"Pankkia {Id} ei löytynyt!");
             }
             else
-                Console.WriteLine($"\n{bank.ID} {bank.Name} {bank.Bic}");
+                Console.WriteLine($"\n{bank.Id} {bank.Name} {bank.Bic}");
         }
 
         public void UpdateBank()
         {
             Bank updateBank = _bankRepository.ReadById(6);
-            updateBank.Name = "S-pankki";
+            updateBank.Name = "Sbank";
             updateBank.Bic = "SBANFIHH";            
             _bankRepository.Update(6, updateBank);
         }
@@ -64,16 +64,18 @@ namespace BankApp.Views
             var accounts = _accountRepository.Read();
             foreach (var a in accounts)
             {
-                Console.WriteLine($"\nPankki:{a.BankID}, Iban:{a.Iban}, Nimi:{a.Name}");
+                Console.WriteLine($"\nPankki:{a.BankId}, Iban:{a.Iban}, Nimi:{a.Name}");
             }
         }
                 
         public void CreateCustomer()
         {
-            Customer customer = new Customer();
-            customer.Firstname = "Hannu";
-            customer.Lastname = "Hanhi";
-            customer.BankID = 2;
+            Customer customer = new Customer
+            {
+                Firstname = "Auvo",
+                Lastname = "Asiakas",
+                BankId = 5,
+            };
 
             _customerRepository.CreateCustomer(customer);
         }
@@ -84,20 +86,20 @@ namespace BankApp.Views
 
             if (customer == null)
             {
-                Console.WriteLine($"Asiakasta {customer.ID} ei löytynyt!");
+                Console.WriteLine($"Asiakasta {customer.Id} ei löytynyt!");
             }
             else
-                Console.WriteLine($"\n{customer.ID},{customer.Firstname},{customer.Lastname}");
+                Console.WriteLine($"\n{customer.Id},{customer.Firstname},{customer.Lastname}");
         }        
 
         public void UpdateCustomer()
         {
-            Customer updateCustomer = _customerRepository.GetCustomerById(1);
-            updateCustomer.Firstname = "Sanni";
-            updateCustomer.Lastname = "Uusisäästäjä";
-            updateCustomer.BankID = 1;
+            Customer updateCustomer = _customerRepository.GetCustomerById(2);
+            updateCustomer.Firstname = "Tiina";
+            updateCustomer.Lastname = "Talettaja";
+            updateCustomer.BankId = 1;
 
-            _customerRepository.UpdateCustomer(updateCustomer, 1);
+            _customerRepository.UpdateCustomer(updateCustomer, 2);
         }
         
         public void DeleteCustomer(int id)
@@ -111,44 +113,9 @@ namespace BankApp.Views
             var customers = _customerRepository.Read();
             foreach (var c in customers)
             {
-                Console.WriteLine($"\n{c.Firstname}\t{c.Lastname}\tPankki:{c.BankID}");
+                Console.WriteLine($"\n{c.Firstname}\t{c.Lastname}\tPankki:{c.BankId}");
             }
-        }
-
-        //public void CreateBankCustomerAccount()
-        //{
-
-        //    Bank bank = new Bank("Swedbank", "SWDFIHH");
-        //    Customer customerOne = new Customer("Hannu", "Hanhi");
-        //    Customer customerTwo = new Customer("Anni", "Asiakas");
-
-        //    List<Customer> customers = new List<Customer>();
-        //    customers.Add(customerOne);
-        //    customers.Add(customerTwo);
-
-        //    Account accountOne = new Account("FI123 12345","Käyttötili", 500);
-        //    Account accountTwo = new Account("FI123 6789", "Tuottotili", 1000);
-
-        //    List<Account> accounts = new List<Account>();
-        //    accounts.Add(accountOne);
-        //    accounts.Add(accountTwo);
-
-        //    Transaction transactionOne = new Transaction(300, new DateTime(2019, 04, 10));
-        //    Transaction transactionTwo = new Transaction(-100, new DateTime(2019, 04, 10));
-
-        //    List<Transaction> transactions = new List<Transaction>();
-        //    transactions.Add(transactionOne);
-        //    transactions.Add(transactionTwo);
-
-        //    bank.Customer = customers;
-        //    bank.Account = accounts;
-        //    accountOne.Transaction = transactions;
-        //    customerOne.Customer = customers;
-
-        //    _bankRepository.Create(bank);
-
-
-        //}
+        }       
 
     }
 }

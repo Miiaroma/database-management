@@ -12,20 +12,14 @@ namespace BankApp.Models
             Transaction = new HashSet<Transaction>();
         }
 
-        public Account(string iban, decimal balance)
-        {
-            Iban = iban;
-            Balance = balance;
-        }
-
         [Key]
         [Column("IBAN")]
         [StringLength(20)]
         public string Iban { get; set; }
         [StringLength(50)]
         public string Name { get; set; }
-        public long BankID { get; set; }
-        public long CustomerID { get; set; }
+        public long BankId { get; set; }
+        public long CustomerId { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Balance { get; set; }
 
@@ -37,10 +31,5 @@ namespace BankApp.Models
         public virtual Customer Customer { get; set; }
         [InverseProperty("IbanNavigation")]
         public virtual ICollection<Transaction> Transaction { get; set; }
-
-        public override string ToString()
-        {
-            return $"{Iban}, {Balance}";
-        }
     }
 }

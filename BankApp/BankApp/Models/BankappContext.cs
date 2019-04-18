@@ -41,13 +41,13 @@ namespace BankApp.Models
 
                 entity.HasOne(d => d.Bank)
                     .WithMany(p => p.Account)
-                    .HasForeignKey(d => d.BankID)
+                    .HasForeignKey(d => d.BankId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Account_Bank");
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Account)
-                    .HasForeignKey(d => d.CustomerID)
+                    .HasForeignKey(d => d.CustomerId)
                     .HasConstraintName("FK_Account_Customer");
             });
 
@@ -64,7 +64,7 @@ namespace BankApp.Models
 
                 entity.HasOne(d => d.Bank)
                     .WithMany(p => p.Customer)
-                    .HasForeignKey(d => d.BankID)
+                    .HasForeignKey(d => d.BankId)
                     .HasConstraintName("FK_Customer_Bank");
             });
 

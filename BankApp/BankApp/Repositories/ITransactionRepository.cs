@@ -7,6 +7,6 @@ namespace BankApp.Repositories
 {
     interface ITransactionRepository
     {
-        List<Transaction> Read();
+        List<Transaction> Read();        
     }
 }

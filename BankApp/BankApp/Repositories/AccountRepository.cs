@@ -23,6 +23,7 @@ namespace BankApp.Repositories
             try
             {
                 _bankappContext.Transaction.Add(transaction);
+                
                 var account = GetAccountByIban(transaction.Iban);
                 account.Balance += transaction.Amount;
 
@@ -47,6 +48,7 @@ namespace BankApp.Repositories
         public Account GetAccountByIban(string iban)
         {
             var account = _bankappContext.Account.Find(iban);
+            //var account = _bankappContext.Account.FirstOrDefault(a => a.Iban == iban);
             return account;
         }
 

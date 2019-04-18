@@ -15,8 +15,8 @@ namespace BankApp.Views
             Account account = new Account();
             account.Iban = "FI123 12345";
             account.Name = "Talletusili";
-            account.BankID = 2;
-            account.CustomerID = 4;
+            account.BankId = 2;
+            account.CustomerId = 4;
             account.Balance = 20000;
 
             _accountRepository.CreateAccount(account);
@@ -31,7 +31,8 @@ namespace BankApp.Views
                 Console.WriteLine($"Tiliä {account.Iban} ei löytynyt!");
             }
             else
-                Console.WriteLine($"\n{account.Iban},{account.CustomerID}");
+                Console.WriteLine($"\nIban: {account.Iban}\nPankki id: {account.BankId}\nTilin nimi: {account.Name} " +
+                    $"\nAsiakas nro: {account.CustomerId}\nSaldo: {account.Balance} €");
         }
 
         public void DeleteAccount(string iban)
@@ -39,19 +40,27 @@ namespace BankApp.Views
             _accountRepository.GetAccountByIban(iban);
             _accountRepository.DeleteAccount(iban);
         }
-        static void CreateTransaction()
+
+        public void CreateTransaction()
         {
             Transaction transaction = new Transaction
             {
-                Iban = "FI49123456789",
-                Amount = -3000,
+                Iban = "FI234598761",
+                Amount = 1000,
                 TimeStamp = DateTime.Today                
             };
             _accountRepository.CreateTransaction(transaction);
         }
-        static void GetTransactionById()
+
+        public void GetTransactionByIban(string iban)
         {            
-            _transactionRepository.GetTransactionById(4);
+           var transactions = _transactionRepository.GetTransactionByIban(iban);
+            Console.WriteLine($"\nTilin: {iban} tapahtumat");
+
+            foreach (var t in transactions)
+            {
+                Console.WriteLine($"{t.Amount} \t{t.TimeStamp}");
+            }
         }
     }
 }

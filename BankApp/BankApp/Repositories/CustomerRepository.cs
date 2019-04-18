@@ -14,9 +14,15 @@ namespace BankApp.Repositories
 
         public void CreateCustomer(Customer customer)
         {
-            
-            _bankappContext.Add(customer);
-            _bankappContext.SaveChanges();           
+            try
+            {
+                _bankappContext.Add(customer);
+                _bankappContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException($"{ex.Message}\n{ex.InnerException.Message}");
+            }
         }
                 
         public void DeleteCustomer(long id)
@@ -38,7 +44,8 @@ namespace BankApp.Repositories
 
         public Customer GetCustomerById(long id)
         {
-            var customer = _bankappContext.Customer.FirstOrDefault(c => c.ID == id);
+            var customer = _bankappContext.Customer.AsNoTracking()
+                .FirstOrDefault(c => c.Id == id);                        
             return customer;
         }
 

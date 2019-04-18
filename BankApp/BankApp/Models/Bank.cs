@@ -13,13 +13,7 @@ namespace BankApp.Models
             Customer = new HashSet<Customer>();
         }
 
-        public Bank(string name, string bic)
-        {
-            Name = name;
-            Bic = bic;
-        }
-
-        public long ID { get; set; }
+        public long Id { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
@@ -32,10 +26,5 @@ namespace BankApp.Models
         public virtual ICollection<Account> Account { get; set; }
         [InverseProperty("Bank")]
         public virtual ICollection<Customer> Customer { get; set; }
-
-        public override string ToString()
-        {
-            return $"{ID},{Name},{Bic}";
-        }
-    }   
+    }
 }
