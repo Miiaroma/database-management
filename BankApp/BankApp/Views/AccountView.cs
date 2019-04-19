@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;using BankApp.Models;
+using System.Text;
+using BankApp.Models;
 using BankApp.Repositories;
 
 namespace BankApp.Views
@@ -9,15 +10,16 @@ namespace BankApp.Views
     {
         private static readonly AccountRepository _accountRepository = new AccountRepository();
         private static readonly TransactionRepository _transactionRepository = new TransactionRepository();
+        private static readonly CustomerRepository _customerRepository = new CustomerRepository();
 
         public void CreateAccount()
         {
             Account account = new Account();
-            account.Iban = "FI123 12345";
-            account.Name = "Talletusili";
+            account.Iban = "FI432112345";
+            account.Name = "Säästötili";
             account.BankId = 2;
-            account.CustomerId = 4;
-            account.Balance = 20000;
+            account.CustomerId = 15;
+            account.Balance = 1500;
 
             _accountRepository.CreateAccount(account);
         }
@@ -41,12 +43,28 @@ namespace BankApp.Views
             _accountRepository.DeleteAccount(iban);
         }
 
+        public void ReadbyId(long id)
+        {
+            var customers = _customerRepository.GetCustomerById(id);
+            var account = _accountRepository.Read(id);
+           
+            foreach (var a in account)
+            {
+                if (account == null)
+                {
+                    Console.WriteLine($"Tiliä {a.Iban} ei löytynyt!");
+                }
+                else
+                    Console.WriteLine($"\nAsiakas/id: {a.CustomerId}\nTilinro: {a.Iban}\nTyyppi: {a.Name}\nSaldo: {a.Balance} €");
+            }
+        }
+        
         public void CreateTransaction()
         {
             Transaction transaction = new Transaction
             {
                 Iban = "FI234598761",
-                Amount = 1000,
+                Amount = 500,
                 TimeStamp = DateTime.Today                
             };
             _accountRepository.CreateTransaction(transaction);

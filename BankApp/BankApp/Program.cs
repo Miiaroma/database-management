@@ -46,41 +46,46 @@ namespace BankApp
                         break;
 
                     case ConsoleKey.B:
-                        bankView.PrintAccounts(_accountRepository.Read());
+                        accountView.CreateAccount();
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
                     case ConsoleKey.E:
-                        bankView.PrintCustomers(_customerRepository.Read());
+                        bankView.PrintAccounts(_accountRepository.Read());
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
                     case ConsoleKey.F:
-                        bankView.UpdateCustomer();
+                        bankView.PrintCustomers(_customerRepository.Read());
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
                     case ConsoleKey.G:
-                        bankView.DeleteCustomer(10);
+                        bankView.UpdateCustomer();
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
                     case ConsoleKey.H:
-                        accountView.DeleteAccount("22113344556677");
+                        bankView.DeleteCustomer(14);
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
                     case ConsoleKey.I:
-                        accountView.ReadbyIban("FI123987654");
+                        accountView.DeleteAccount("22113344556677");
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
-                    case ConsoleKey.J:
-                        accountView.CreateTransaction();
+                    case ConsoleKey.J:                        
+                        accountView.ReadbyId(1);
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
                     case ConsoleKey.K:
+                        accountView.CreateTransaction();
+                        message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
+
+                    case ConsoleKey.L:
                         accountView.GetTransactionByIban("112233445566778");
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
@@ -108,17 +113,18 @@ namespace BankApp
             Console.WriteLine("[U] Päivitä pankin tiedot.");
             Console.WriteLine("[D] Poista pankki tietokannasta.");
             Console.WriteLine("----------------------------------");
-            Console.WriteLine("[A] Lisää pankkiin uusi asiakas ja asiakkaalle tili.");
-            Console.WriteLine("[B] Hae pankissa olevat tilit.");
-            Console.WriteLine("[E] Hae pankin asiakkaat.");
+            Console.WriteLine("[A] Lisää pankkiin uusi asiakas.");
+            Console.WriteLine("[B] Lisää uudelle asiakkaalle tili.");
+            Console.WriteLine("[E] Hae pankissa olevat tilit.");
+            Console.WriteLine("[F] Hae pankin asiakkaat.");
             Console.WriteLine("----------------------------------");
-            Console.WriteLine("[F] Päivitä asiakastiedot.");
-            Console.WriteLine("[G] Poista asiakastiedot.");
-            Console.WriteLine("[H] Poista asiakkaan tili.");
+            Console.WriteLine("[G] Päivitä asiakastiedot.");
+            Console.WriteLine("[H] Poista asiakastiedot.");
+            Console.WriteLine("[I] Poista asiakkaan tili.");
             Console.WriteLine("----------------------------------");
-            Console.WriteLine("[I] Hae asiakkaan tilit ja niiden saldot.");
-            Console.WriteLine("[J] Luo asiakkaalle tilitapahtuma.");
-            Console.WriteLine("[K] Hae asiakkaan tilitapahtumat.");
+            Console.WriteLine("[J] Hae asiakkaan tilit ja niiden saldot.");
+            Console.WriteLine("[K] Luo asiakkaalle tilitapahtuma.");
+            Console.WriteLine("[L] Hae asiakkaan tilitapahtumat.");
 
             
             Console.WriteLine("[ESC] Lopeta ohjelman suoritus.");

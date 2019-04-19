@@ -44,8 +44,7 @@ namespace BankApp.Repositories
 
         public Customer GetCustomerById(long id)
         {
-            var customer = _bankappContext.Customer.AsNoTracking()
-                .FirstOrDefault(c => c.Id == id);                        
+            var customer = _bankappContext.Customer.FirstOrDefault(c => c.Id == id);                        
             return customer;
         }
 

@@ -14,8 +14,15 @@ namespace BankApp.Repositories
 
         public void CreateAccount(Account account)
         {
-            _bankappContext.Account.Add(account);
-            _bankappContext.SaveChanges();            
+            try
+            {
+                _bankappContext.Account.Add(account);
+                _bankappContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public void CreateTransaction(Transaction transaction)
@@ -43,6 +50,18 @@ namespace BankApp.Repositories
                 Result;
             return accounts;
            
+        }
+
+        public List<Account> Read(long id)
+        {
+            var accounts = _bankappContext.Account.Where(a => a.CustomerId == id).ToList();
+            return accounts;
+        }
+
+        public Account GetAccountById(long id)
+        {
+            var account = _bankappContext.Account.Find(id);            
+            return account;
         }
 
         public Account GetAccountByIban(string iban)

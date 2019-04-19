@@ -64,7 +64,15 @@ namespace BankApp.Views
             var accounts = _accountRepository.Read();
             foreach (var a in accounts)
             {
-                Console.WriteLine($"\nPankki:{a.BankId}, Iban:{a.Iban}, Nimi:{a.Name}");
+                if (a == null)
+                {
+                    Console.WriteLine("Tiliä ei löytynyt.");
+                }
+
+                else
+                {
+                    Console.WriteLine($"\nTili: {a.Iban}\nNimi: {a.Name}\nPankki/id: {a.BankId}");
+                }
             }
         }
                 
@@ -72,9 +80,9 @@ namespace BankApp.Views
         {
             Customer customer = new Customer
             {
-                Firstname = "Auvo",
-                Lastname = "Asiakas",
-                BankId = 5,
+                Firstname = "Brita",
+                Lastname = "Kottarainen",
+                BankId = 2,
             };
 
             _customerRepository.CreateCustomer(customer);
@@ -96,7 +104,7 @@ namespace BankApp.Views
         {
             Customer updateCustomer = _customerRepository.GetCustomerById(2);
             updateCustomer.Firstname = "Tiina";
-            updateCustomer.Lastname = "Talettaja";
+            updateCustomer.Lastname = "Tallettaja";
             updateCustomer.BankId = 1;
 
             _customerRepository.UpdateCustomer(updateCustomer, 2);
@@ -113,10 +121,17 @@ namespace BankApp.Views
             var customers = _customerRepository.Read();
             foreach (var c in customers)
             {
-                Console.WriteLine($"\n{c.Firstname}\t{c.Lastname}\tPankki:{c.BankId}");
-            }
-        }       
+                if (c == null)
+                {
+                    Console.WriteLine("Tiliä ei löytynyt.");
+                }
 
+                else
+                {
+                    Console.WriteLine($"\n{c.Firstname} {c.Lastname}\nPankki/id:{c.BankId}");
+                }
+            }
+        }   
     }
 }
 
