@@ -26,5 +26,10 @@ namespace BankApp.Models
         public virtual ICollection<Account> Account { get; set; }
         [InverseProperty("Bank")]
         public virtual ICollection<Customer> Customer { get; set; }
+
+        public override string ToString()
+        {
+            return $"\n{Name}, {Bic}";
+        }
     }
 }

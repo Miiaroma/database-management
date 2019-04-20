@@ -90,6 +90,11 @@ namespace BankApp
                         message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
                         break;
 
+                    case ConsoleKey.R:
+                        accountView.PrintAll();
+                        message = "\n------------------------------------\nPaina Enter jatkaaksesi!";
+                        break;
+
                     case ConsoleKey.Escape:
                         message = "\nOhjelman suoritus päättyy.";
                         break;
@@ -125,8 +130,9 @@ namespace BankApp
             Console.WriteLine("[J] Hae asiakkaan tilit ja niiden saldot.");
             Console.WriteLine("[K] Luo asiakkaalle tilitapahtuma.");
             Console.WriteLine("[L] Hae asiakkaan tilitapahtumat.");
+            Console.WriteLine("----------------------------------");
+            Console.WriteLine("[R] Hae kaikki tiedot.");
 
-            
             Console.WriteLine("[ESC] Lopeta ohjelman suoritus.");
             Console.WriteLine();
             Console.WriteLine("Valitse vaihtoehto:");

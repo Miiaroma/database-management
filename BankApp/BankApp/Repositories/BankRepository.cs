@@ -80,7 +80,7 @@ namespace BankApp.Repositories
             List<Bank> banks = _bankappContext.Bank
                 .Include(b => b.Customer)
                 .Include(b => b.Account)
-                .ThenInclude(a => a.Transaction)
+                .Include(b => b.Account).ThenInclude(a => a.Transaction)
                 .ToListAsync().Result;
             return banks;
         }

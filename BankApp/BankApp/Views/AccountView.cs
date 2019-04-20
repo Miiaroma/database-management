@@ -11,6 +11,7 @@ namespace BankApp.Views
         private static readonly AccountRepository _accountRepository = new AccountRepository();
         private static readonly TransactionRepository _transactionRepository = new TransactionRepository();
         private static readonly CustomerRepository _customerRepository = new CustomerRepository();
+        private static readonly BankRepository _bankRepository = new BankRepository();
 
         public void CreateAccount()
         {
@@ -78,6 +79,30 @@ namespace BankApp.Views
             foreach (var t in transactions)
             {
                 Console.WriteLine($"{t.Amount} \t{t.TimeStamp}");
+            }
+        }
+
+        public void PrintAll()
+        {
+            BankRepository bankRepository = new BankRepository();
+
+            var bankCustomers = bankRepository.GetTransactionsFromBankCustomersAccounts();
+
+            foreach (var bC in bankCustomers)
+            {
+                Console.WriteLine(bC.ToString());
+                foreach (var c in bC.Customer)
+                {
+                    Console.WriteLine(c.ToString());
+                    foreach (var cAccount in c.Account)
+                    {
+                        Console.WriteLine($"{cAccount.ToString()}");
+                        foreach (var t in cAccount.Transaction)
+                        {
+                            Console.WriteLine($"{t.ToString()}");
+                        }
+                    }
+                }
             }
         }
     }

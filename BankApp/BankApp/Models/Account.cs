@@ -31,5 +31,10 @@ namespace BankApp.Models
         public virtual Customer Customer { get; set; }
         [InverseProperty("IbanNavigation")]
         public virtual ICollection<Transaction> Transaction { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Iban}\tsaldo: {Balance}";
+        }
     }
 }

@@ -20,5 +20,10 @@ namespace BankApp.Models
         [ForeignKey("Iban")]
         [InverseProperty("Transaction")]
         public virtual Account IbanNavigation { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Amount}, {TimeStamp}";
+        }
     }
 }
